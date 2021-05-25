@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zomato/controllers/onboarding_controller.dart';
+import 'package:flutter_zomato/views/products/product_list_page.dart';
 import 'package:get/get.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -96,6 +97,8 @@ class OnboardingPage extends StatelessWidget {
                     ? TextButton(
                         onPressed: () {
                           print("ON last page");
+                          // Get.to(HomePage());
+                          Get.to(() => ProductListPage());
                         },
                         child: Text(
                           "Get Started",
