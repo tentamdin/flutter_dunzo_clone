@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zomato/config/constants.dart';
 import 'package:flutter_zomato/controllers/cart_controller.dart';
 import 'package:flutter_zomato/controllers/product_controller.dart';
-import 'package:flutter_zomato/views/products/single_product.dart';
+import 'package:flutter_zomato/views/products/product_detail_page.dart';
+import 'package:flutter_zomato/widget/bottom_cart_sheet.dart';
+import 'package:flutter_zomato/widget/custom_appbar.dart';
+import 'package:flutter_zomato/widget/single_product.dart';
 import 'package:get/get.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -12,24 +15,23 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-          ),
-          onPressed: () {},
-        ),
-        title: Text("Fresh Friut"),
-        actions: [
-          IconButton(
+      appBar: CustomAppBar(
+          elevation: 2,
+          leadingWidget: IconButton(
             icon: Icon(
-              Icons.search,
+              Icons.arrow_back,
             ),
             onPressed: () {},
-          )
-        ],
-      ),
+          ),
+          titleWidget: Text("Fresh Friut", style: TextStyle(fontSize: 18)),
+          actionWidget: [
+            IconButton(
+              icon: Icon(
+                Icons.search,
+              ),
+              onPressed: () {},
+            ),
+          ]),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
@@ -41,6 +43,31 @@ class ProductListPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return SingleProduct(
                         index: index,
+                        listTileOnTap: () {
+                          Get.to(() => ProductDetailPage(
+                                index: index,
+                              ));
+                        },
+                        listTileLeadingWidget: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.red,
+                          ),
+                          child: Image.asset(
+                            shoppingController.products[index].productImage,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        listTileTitleWidget: Text(
+                          "${shoppingController.products[index].productName}",
+                          style: KProductBoldStyle,
+                        ),
+                        listTileSubtitleWidget: Text(
+                          "\u{20B9}${shoppingController.products[index].price}",
+                          style: KProductBoldStyle,
+                        ),
                       );
                     });
               }),
@@ -53,73 +80,7 @@ class ProductListPage extends StatelessWidget {
             ? Container(
                 height: 0,
               )
-            : BottomSheet(
-                onClosing: () {
-                  print("Cart is empty");
-                },
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                builder: (context) {
-                  return Container(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 40, right: 20, left: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.shopping_cart_outlined,
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("${cartController.cartCount} Items",
-                                  style: KProductBoldStyle),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "\u{20B9} ${cartController.totalAmount}",
-                                style: TextStyle(
-                                  color: Colors.tealAccent.shade700,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                Colors.tealAccent.shade700,
-                              ),
-                              padding: MaterialStateProperty.all(
-                                EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 10),
-                              ),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                              )),
-                          onPressed: () {},
-                          child: Text(
-                            'View Cart',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                }),
+            : BottomCartSheet(),
       ),
     );
   }

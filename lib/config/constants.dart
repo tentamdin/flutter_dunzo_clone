@@ -23,7 +23,7 @@ List<String> foodList = [
 ];
 
 const KBoldTextStyle = TextStyle(
-  fontSize: 16,
+  fontSize: 18,
   fontWeight: FontWeight.w600,
 );
 
@@ -31,4 +31,10 @@ const KProductBoldStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w500,
   color: Colors.black,
+);
+
+const KProductChangingButtonTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Color(0xFF00BFA5),
+  fontSize: 16,
 );

@@ -5,45 +5,38 @@ import 'package:flutter_zomato/controllers/product_controller.dart';
 import 'package:get/get.dart';
 
 class SingleProduct extends StatelessWidget {
-  SingleProduct({
-    this.index,
-  });
+  SingleProduct(
+      {this.index,
+      this.listTileLeadingWidget,
+      this.listTileSubtitleWidget,
+      this.listTileOnTap,
+      this.listTileTitleWidget});
 
   final shoppingController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
   final int index;
+  final Function listTileOnTap;
+  final Widget listTileLeadingWidget;
+  final Widget listTileTitleWidget;
+  final Widget listTileSubtitleWidget;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(
+        vertical: 20,
+      ),
       child: ListTile(
-        leading: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.red,
-          ),
-          child: Image.asset(
-            shoppingController.products[index].productImage,
-            width: 100,
-            height: 100,
-            fit: BoxFit.contain,
-          ),
-        ),
-        title: Text(
-          "${shoppingController.products[index].productName}",
-          style: KProductBoldStyle,
-        ),
-        subtitle: Text(
-          "\u{20B9} ${shoppingController.products[index].price}",
-          style: KProductBoldStyle,
-        ),
+        onTap: listTileOnTap,
+        leading: listTileLeadingWidget,
+        title: listTileTitleWidget,
+        subtitle: listTileSubtitleWidget,
         trailing: Obx(
           () => shoppingController.products[index].quantity.value == 0
               ? OutlinedButton(
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 0),
                       ),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -56,15 +49,12 @@ class SingleProduct extends StatelessWidget {
                   },
                   child: Text(
                     'ADD',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.tealAccent.shade700,
-                    ),
+                    style: KProductChangingButtonTextStyle,
                   ),
                 )
               : Container(
-                  width: 90,
-                  height: 40,
+                  width: 85,
+                  height: 35,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     border: Border.all(color: Colors.grey.shade400),
@@ -86,12 +76,15 @@ class SingleProduct extends StatelessWidget {
                             }),
                       ),
                       Text(
-                          "${shoppingController.products[index].quantity.value}"),
+                        "${shoppingController.products[index].quantity.value}",
+                        style: KProductChangingButtonTextStyle,
+                      ),
                       Expanded(
                         child: IconButton(
                             icon: Icon(
                               Icons.add,
                               size: 20,
+                              color: Colors.tealAccent.shade700,
                             ),
                             onPressed: () {
                               cartController.increment(index);
