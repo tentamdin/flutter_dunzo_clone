@@ -11,15 +11,21 @@ List<String> optionList = [
   "More"
 ];
 
-List<String> foodList = [
-  "Healthy",
-  "Pizza",
-  "Chicken",
-  "Biryani",
-  "Burger",
-  "Chaat",
-  "Cake",
-  "Rolls"
+List<String> productList = [
+  "Fresh Fruits",
+  "Fresh Vegetables",
+  "BreakFast & Dairy",
+  "Provisions",
+  "Condiments",
+  "Instant Foods",
+  "Beverages",
+  "Snacks",
+  "Ice-cream",
+  "Baby care",
+  "Personal Care",
+  "Cleaning & Household",
+  "Pooja Needs",
+  "Stationary"
 ];
 
 const KBoldTextStyle = TextStyle(

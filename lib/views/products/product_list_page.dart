@@ -51,7 +51,7 @@ class ProductListPage extends StatelessWidget {
                         listTileLeadingWidget: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
                           child: Image.asset(
                             shoppingController.products[index].productImage,

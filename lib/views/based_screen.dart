@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/views/goOut/goout_page_home.dart';
-import 'package:flutter_zomato/views/nutrition_page_home.dart';
-import 'package:flutter_zomato/views/order/order_page_home.dart';
-import 'package:flutter_zomato/views/pro_page_home.dart';
+import 'package:flutter_zomato/views/home/home_page.dart';
+import 'package:flutter_zomato/views/cash/cash_page.dart';
+import 'package:flutter_zomato/views/order/order_page.dart';
+import 'package:flutter_zomato/views/search/search_page.dart';
 
-class HomePage extends StatefulWidget {
+class BasedScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _BasedScreenState createState() => _BasedScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BasedScreenState extends State<BasedScreen> {
   int _currentIndex = 0;
   final List<Widget> _screen = [
-    OrderPageHome(),
-    GoOutPageHome(),
-    ProPageHome(),
-    NutritionPageHome(),
+    HomePage(),
+    SearchPage(),
+    OrderPage(),
+    CashPage(),
   ];
 
   void onTabTapped(int index) {
@@ -30,30 +30,27 @@ class _HomePageState extends State<HomePage> {
       body: _screen[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey.shade700,
-        selectedItemColor: Colors.red,
+        selectedItemColor: Colors.greenAccent.shade700,
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        unselectedLabelStyle: TextStyle(
-          color: Colors.grey,
-        ),
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: "Order",
+            icon: Icon(Icons.home_outlined),
+            label: "HOME",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            label: 'Go Out',
+            icon: Icon(Icons.search_outlined),
+            label: 'SEARCH',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Pro',
+            icon: Icon(Icons.shopping_bag_outlined),
+            label: 'ORDER',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.art_track),
-            label: 'Nutrition',
+            label: 'DUNZO CASH',
           ),
         ],
       ),
