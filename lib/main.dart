@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zomato/views/based_screen.dart';
 import 'package:flutter_zomato/views/onboarding_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -14,10 +15,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-          primaryColor: Colors.white, scaffoldBackgroundColor: Colors.white
-          // scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.greenAccent,
+        scaffoldBackgroundColor: Colors.white,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.white,
+          selectedIconTheme: IconThemeData(
+            color: Colors.green.shade900,
+            size: 30,
           ),
-      home: OnboardingPage(),
+          selectedLabelStyle: TextStyle(
+            color: Colors.greenAccent,
+          ),
+        ),
+      ),
+      // home: OnboardingPage(),
+      home: BasedScreen(),
     );
   }
 }

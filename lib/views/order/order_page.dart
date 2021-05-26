@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProPageHome extends StatelessWidget {
-  const ProPageHome({Key key}) : super(key: key);
+class OrderPage extends StatelessWidget {
+  const OrderPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

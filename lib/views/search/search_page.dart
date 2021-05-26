@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zomato/config/constants.dart';
 
-class GoOutPageHome extends StatelessWidget {
-  const GoOutPageHome({Key key}) : super(key: key);
+class SearchPage extends StatelessWidget {
+  const SearchPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class GoOutPageHome extends StatelessWidget {
       child: GridView.count(
           crossAxisCount: 4,
           padding: const EdgeInsets.all(4.0),
-          children: foodList
+          children: productList
               .map(
                 (data) => Container(
                   child: GridTile(
