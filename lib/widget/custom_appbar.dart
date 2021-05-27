@@ -6,12 +6,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleWidget,
     this.actionWidget,
     this.elevation,
+    this.backgroundColor,
   });
 
   final Widget leadingWidget;
   final Widget titleWidget;
   final List<Widget> actionWidget;
   final double elevation;
+  final Color backgroundColor;
 
   @override
   Size get preferredSize => new Size.fromHeight(kToolbarHeight);
@@ -24,6 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: leadingWidget,
       title: titleWidget,
       actions: actionWidget,
+      backgroundColor: backgroundColor,
     );
   }
 }

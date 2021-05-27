@@ -21,7 +21,9 @@ class ProductListPage extends StatelessWidget {
             icon: Icon(
               Icons.arrow_back,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
           ),
           titleWidget: Text("Fresh Friut", style: TextStyle(fontSize: 18)),
           actionWidget: [

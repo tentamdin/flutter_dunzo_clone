@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zomato/config/constants.dart';
+import 'package:flutter_zomato/views/cart/cart_page.dart';
+import 'package:flutter_zomato/views/products/product_list_page.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -42,7 +45,9 @@ class HomePage extends StatelessWidget {
               Icons.shopping_cart_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => CartPage());
+            },
           ),
         ],
       ),
@@ -105,38 +110,45 @@ class HomePage extends StatelessWidget {
                     crossAxisCount: 3,
                     children: productList
                         .map(
-                          (product) => GridTile(
-                            child: Material(
-                              elevation: 2,
-                              color: Colors.grey.shade50,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                side:
-                                    BorderSide(width: 0.5, color: Colors.grey),
-                              ),
-                              clipBehavior: Clip.antiAlias,
-                              child: Image.asset(
-                                "",
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            footer: Material(
-                              color: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  bottom: Radius.circular(4),
+                          (product) => GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                () => ProductListPage(),
+                              );
+                            },
+                            child: GridTile(
+                              child: Material(
+                                elevation: 2,
+                                color: Colors.grey.shade50,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(
+                                      width: 0.5, color: Colors.grey),
                                 ),
-                                side:
-                                    BorderSide(width: 0.5, color: Colors.grey),
+                                clipBehavior: Clip.antiAlias,
+                                child: Image.asset(
+                                  "",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              clipBehavior: Clip.antiAlias,
-                              child: GridTileBar(
-                                backgroundColor: Colors.white,
-                                title: Text(
-                                  product,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 14),
+                              footer: Material(
+                                color: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    bottom: Radius.circular(4),
+                                  ),
+                                  side: BorderSide(
+                                      width: 0.5, color: Colors.grey),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: GridTileBar(
+                                  backgroundColor: Colors.white,
+                                  title: Text(
+                                    product,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
                                 ),
                               ),
                             ),
