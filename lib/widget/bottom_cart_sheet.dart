@@ -17,8 +17,7 @@ class BottomCartSheet extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         builder: (context) {
           return Container(
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 40, right: 20, left: 20),
+            padding: EdgeInsets.only(top: 10, bottom: 40, right: 20, left: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
