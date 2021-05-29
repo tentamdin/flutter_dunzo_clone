@@ -45,7 +45,7 @@ class SingleProduct extends StatelessWidget {
                   onPressed: () {
                     cartController.increment(index);
                     cartController
-                        .addToCart(shoppingController.products[index]);
+                        .addProductToCart(shoppingController.products[index]);
                   },
                   child: Text(
                     'ADD',
@@ -88,7 +88,7 @@ class SingleProduct extends StatelessWidget {
                             ),
                             onPressed: () {
                               cartController.increment(index);
-                              cartController.addToCart(
+                              cartController.addProductToCart(
                                   shoppingController.products[index]);
                             }),
                       ),

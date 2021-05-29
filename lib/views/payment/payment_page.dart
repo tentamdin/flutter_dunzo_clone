@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zomato/config/constants.dart';
+import 'package:get/get.dart';
 
 class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_outlined,
+            color: Colors.grey.shade600,
+          ),
+        ),
         title: Text("Payment Page"),
       ),
       body: SafeArea(

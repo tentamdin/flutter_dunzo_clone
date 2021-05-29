@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zomato/config/constants.dart';
+import 'package:flutter_zomato/controllers/cart_controller.dart';
+import 'package:flutter_zomato/controllers/product_controller.dart';
 import 'package:flutter_zomato/views/payment/payment_page.dart';
 import 'package:flutter_zomato/widget/custom_appbar.dart';
 import 'package:get/get.dart';
 
 class CartPage extends StatelessWidget {
+  final shoppingController = Get.find<ProductController>();
+  final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         elevation: 1,
         titleWidget: Text(
-          "Confirm Order",
+          cartController.cartList.length == 0 ? "Your Cart" : "Confirm Order",
           style: KBoldTextStyle,
         ),
         leadingWidget: IconButton(
@@ -24,277 +28,338 @@ class CartPage extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: cartController.cartList.length == 0
+          ? SafeArea(
+              child: Center(
+                child: Column(
                   children: [
-                    Text("13 Nature Vitamins"),
-                    Text("+ Add more"),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Image.asset(
+                      "assets/imgs/emptycart.jpg",
+                      width: 200,
+                      height: 200,
+                    ),
+                    Text(
+                      "Your cart is empty",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Make your task list and Dunzo it now!",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
+                    )
                   ],
                 ),
-                Column(
-                  children: productList.getRange(0, 6).map<Widget>(
-                    (product) {
-                      return ListTile(
-                        minLeadingWidth: 10,
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        leading: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minHeight: 20,
-                            minWidth: 10,
+              ),
+            )
+          : SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Store Name"),
+                          Text(
+                            "+ Add more",
+                            style: TextStyle(
+                              color: Colors.greenAccent.shade700,
+                            ),
                           ),
+                        ],
+                      ),
+                      Obx(
+                        () => Column(
+                          children: cartController.cartList.map<Widget>(
+                            (cartItem) {
+                              return ListTile(
+                                minLeadingWidth: 10,
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
+                                leading: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minHeight: 20,
+                                    minWidth: 10,
+                                  ),
+                                  child: Icon(
+                                    Icons.circle,
+                                    size: 10,
+                                    color: Colors.greenAccent.shade700,
+                                  ),
+                                ),
+                                title: Text(
+                                  "${cartItem.productName}",
+                                  style: KProductBoldStyle,
+                                ),
+                                subtitle: Text(
+                                  "${cartItem.quantity}",
+                                  style: TextStyle(
+                                    color: Colors.grey.shade800,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                trailing: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      width: 85,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        border: Border.all(
+                                            color: Colors.grey.shade400),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            child: IconButton(
+                                                icon: Icon(
+                                                  Icons.remove,
+                                                  size: 20,
+                                                ),
+                                                onPressed: () {
+                                                  // cartController.decrement(index);
+                                                  // cartController.removeFromcart(
+                                                  //     shoppingController.products[index]);
+                                                }),
+                                          ),
+                                          Text(
+                                            "${cartItem.quantity}",
+                                            style:
+                                                KProductChangingButtonTextStyle,
+                                          ),
+                                          Expanded(
+                                            child: IconButton(
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  size: 20,
+                                                  color: Colors
+                                                      .tealAccent.shade700,
+                                                ),
+                                                onPressed: () {
+                                                  // cartController.increment(index);
+                                                  // cartController.addToCart(
+                                                  //     shoppingController.products[index]);
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                      width: 40,
+                                      child: Text(
+                                        "\u{20B9}${cartItem.price.toInt() * cartItem.quantity.toInt()}",
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                      Divider(
+                        thickness: 0.5,
+                      ),
+                      ListTile(
+                        contentPadding: EdgeInsets.symmetric(vertical: 20),
+                        minLeadingWidth: 20,
+                        leading: GestureDetector(
+                          onTap: () {},
                           child: Icon(
-                            Icons.circle,
-                            size: 10,
-                            color: Colors.greenAccent.shade400,
+                            Icons.check_box_outline_blank,
+                            color: Colors.grey,
                           ),
                         ),
                         title: Text(
-                          "${product}",
+                          "No Contact Delivery",
                           style: KProductBoldStyle,
                         ),
                         subtitle: Text(
-                          "items quanity",
+                          'Partner will check with you and leave the order outside your door.',
                           style: TextStyle(
-                            color: Colors.grey.shade800,
                             fontSize: 14,
                           ),
                         ),
-                        trailing: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 85,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: Colors.grey.shade400),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    child: IconButton(
-                                        icon: Icon(
-                                          Icons.remove,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          // cartController.decrement(index);
-                                          // cartController.removeFromcart(
-                                          //     shoppingController.products[index]);
-                                        }),
-                                  ),
-                                  Text(
-                                    "2",
-                                    style: KProductChangingButtonTextStyle,
-                                  ),
-                                  Expanded(
-                                    child: IconButton(
-                                        icon: Icon(
-                                          Icons.add,
-                                          size: 20,
-                                          color: Colors.tealAccent.shade700,
-                                        ),
-                                        onPressed: () {
-                                          // cartController.increment(index);
-                                          // cartController.addToCart(
-                                          //     shoppingController.products[index]);
-                                        }),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text("\u{20B9}56"),
-                          ],
+                      ),
+                      TextField(
+                        textAlign: TextAlign.left,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.notes_outlined,
+                            color: Colors.grey,
+                          ),
+                          prefixIconConstraints:
+                              BoxConstraints(minHeight: 0, minWidth: 40),
+                          hintText:
+                              "Any Instructions? Eg: Don't ring the doorbell",
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.all(0),
+                          hintStyle: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                          border: InputBorder.none,
                         ),
-                      );
-                    },
-                  ).toList(),
-                ),
-                Divider(
-                  thickness: 0.5,
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.symmetric(vertical: 20),
-                  minLeadingWidth: 20,
-                  leading: GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.check_box_outline_blank,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  title: Text(
-                    "No Contact Delivery",
-                    style: KProductBoldStyle,
-                  ),
-                  subtitle: Text(
-                    'Partner will check with you and leave the order outside your door.',
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                TextField(
-                  textAlign: TextAlign.left,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.notes_outlined,
-                      color: Colors.grey,
-                    ),
-                    prefixIconConstraints:
-                        BoxConstraints(minHeight: 0, minWidth: 40),
-                    hintText: "Any Instructions? Eg: Don't ring the doorbell",
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.all(0),
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  onChanged: null,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                  ),
-                  child: Text(
-                    "Payment Details",
-                    style: KProductBoldStyle,
+                        onChanged: null,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                        ),
+                        child: Text(
+                          "Payment Details",
+                          style: KProductBoldStyle,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Item total"),
+                          Text("Rs 155"),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.5,
+                        color: Colors.grey,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Partner delivery fee"),
+                          Text("Rs 30"),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.5,
+                        color: Colors.grey,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("To pay"),
+                          Text("Rs 185"),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Item total"),
-                    Text("Rs 155"),
-                  ],
-                ),
-                Divider(
-                  thickness: 0.5,
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Partner delivery fee"),
-                    Text("Rs 30"),
-                  ],
-                ),
-                Divider(
-                  thickness: 0.5,
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("To pay"),
-                    Text("Rs 185"),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-      bottomSheet: BottomSheet(
-          onClosing: () {
-            print("Cart is empty");
-          },
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-            0,
-          )),
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.only(
-                bottom: 30,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    child: ListTile(
-                      minLeadingWidth: 20,
-                      leading: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: 40,
-                        ),
-                        child: Icon(
-                          Icons.location_on_outlined,
-                          color: Colors.greenAccent.shade700,
-                        ),
-                      ),
-                      title: Text(
-                        "Home",
-                        style: KBoldTextStyle,
-                      ),
-                      subtitle: Text(
-                        "Home address",
-                      ),
-                    ),
+      bottomSheet: cartController.cartList.length == 0
+          ? null
+          : BottomSheet(
+              onClosing: () {
+                print("Cart is empty");
+              },
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.grey,
+                    width: 0.5,
                   ),
-                  Divider(
-                    thickness: 1,
+                  borderRadius: BorderRadius.circular(
+                    0,
+                  )),
+              builder: (context) {
+                return Container(
+                  padding: EdgeInsets.only(
+                    bottom: 30,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 5,
-                      bottom: 10,
-                      right: 20,
-                      left: 20,
-                    ),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            Colors.tealAccent.shade700,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: ListTile(
+                          minLeadingWidth: 20,
+                          leading: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 40,
+                            ),
+                            child: Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.greenAccent.shade700,
+                            ),
                           ),
-                          padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                          title: Text(
+                            "Home",
+                            style: KBoldTextStyle,
                           ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                          )),
-                      onPressed: () {
-                        Get.to(() => PaymentPage());
-                      },
-                      child: Text(
-                        'Pay \u{20B9}300',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          subtitle: Text(
+                            "Home address",
+                          ),
                         ),
                       ),
-                    ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 5,
+                          bottom: 10,
+                          right: 20,
+                          left: 20,
+                        ),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                Colors.tealAccent.shade700,
+                              ),
+                              padding: MaterialStateProperty.all(
+                                EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 10),
+                              ),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              )),
+                          onPressed: () {
+                            Get.to(() => PaymentPage());
+                          },
+                          child: Obx(
+                            () => Text(
+                              'Pay \u{20B9} ${cartController.totalAmount}',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        thickness: 2,
+                      ),
+                    ],
                   ),
-                  Divider(
-                    thickness: 2,
-                  ),
-                ],
-              ),
-            );
-          }),
+                );
+              }),
     );
   }
 }

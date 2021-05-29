@@ -1,20 +1,19 @@
 import 'package:get/state_manager.dart';
 
 class Product {
-  final int id;
+  final int productId;
   final String productName;
   final String productImage;
   final String productDescription;
   final double price;
 
   Product({
-    this.id,
+    this.productId,
     this.productName,
     this.productImage,
     this.productDescription,
     this.price,
   });
 
-  final isFavorite = false.obs;
   final quantity = 0.obs;
 }

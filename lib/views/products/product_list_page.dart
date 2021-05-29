@@ -9,14 +9,15 @@ import 'package:flutter_zomato/widget/single_product.dart';
 import 'package:get/get.dart';
 
 class ProductListPage extends StatelessWidget {
-  final shoppingController = Get.put(ProductController());
-  final cartController = Get.put(CartController());
+  final shoppingController = Get.find<ProductController>();
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          elevation: 2,
+          backgroundColor: Colors.white,
+          elevation: 1,
           leadingWidget: IconButton(
             icon: Icon(
               Icons.arrow_back,

@@ -9,11 +9,11 @@ class CartController extends GetxController {
   double get totalAmount => cartList.fold(
       0, (previousValue, element) => previousValue + element.price);
 
-  addToCart(product) {
+  addProductToCart(Product product) {
     cartList.add(product);
   }
 
-  removeFromcart(product) {
+  removeFromcart(Product product) {
     cartList.remove(product);
   }
 
