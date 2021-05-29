@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zomato/config/constants.dart';
+import 'package:flutter_zomato/views/account/account_page.dart';
 import 'package:flutter_zomato/views/cart/cart_page.dart';
 import 'package:flutter_zomato/views/products/product_list_page.dart';
 import 'package:get/get.dart';
@@ -24,8 +25,8 @@ class HomePage extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                "Home",
-                style: KBoldTextStyle.copyWith(
+                "Home ",
+                style: KProductBoldStyle.copyWith(
                   color: Colors.white,
                 ),
               ),
@@ -38,7 +39,9 @@ class HomePage extends StatelessWidget {
               Icons.person_outline_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => AccountPage());
+            },
           ),
           IconButton(
             icon: Icon(

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zomato/controllers/cart_controller.dart';
+import 'package:flutter_zomato/controllers/product_controller.dart';
 import 'package:flutter_zomato/views/based_screen.dart';
-import 'package:flutter_zomato/views/onboarding_page.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Get.put(ProductController());
+  Get.put(CartController());
   runApp(MyApp());
 }
 
