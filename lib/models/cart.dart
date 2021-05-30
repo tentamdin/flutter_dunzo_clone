@@ -15,13 +15,15 @@ class CartModel {
   String productId;
   double price;
 
-  CartModel(
-      {this.productId,
-      this.id,
-      this.image,
-      this.name,
-      this.quantity,
-      this.cost});
+  CartModel({
+    this.productId,
+    this.id,
+    this.image,
+    this.name,
+    this.quantity,
+    this.cost,
+    this.price,
+  });
 
   CartModel.fromMap(Map<String, dynamic> data) {
     id = data[ID];

@@ -43,7 +43,8 @@ class SingleProduct extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15)),
                       )),
                   onPressed: () {
-                    cartController.increment(index);
+                    cartController
+                        .increaseQuantity(shoppingController.products[index]);
                     cartController
                         .addProductToCart(shoppingController.products[index]);
                   },
@@ -70,8 +71,9 @@ class SingleProduct extends StatelessWidget {
                               size: 20,
                             ),
                             onPressed: () {
-                              cartController.decrement(index);
-                              cartController.removeFromcart(
+                              cartController.decreaseQuantity(
+                                  shoppingController.products[index]);
+                              cartController.removeCartItem(
                                   shoppingController.products[index]);
                             }),
                       ),
@@ -87,7 +89,8 @@ class SingleProduct extends StatelessWidget {
                               color: Colors.tealAccent.shade700,
                             ),
                             onPressed: () {
-                              cartController.increment(index);
+                              cartController.increaseQuantity(
+                                  shoppingController.products[index]);
                               cartController.addProductToCart(
                                   shoppingController.products[index]);
                             }),
