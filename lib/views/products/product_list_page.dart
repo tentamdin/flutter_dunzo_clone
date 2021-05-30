@@ -44,6 +44,7 @@ class ProductListPage extends StatelessWidget {
                 return ListView.builder(
                     itemCount: shoppingController.products.length,
                     itemBuilder: (context, index) {
+                      cartController.productIndex.value = index;
                       return SingleProduct(
                         index: index,
                         listTileOnTap: () {

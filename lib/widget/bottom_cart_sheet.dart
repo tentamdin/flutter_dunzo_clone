@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 class BottomCartSheet extends StatelessWidget {
   final cartController = Get.find<CartController>();
+  BottomCartSheet({this.index});
+  final int index;
 
   @override
   Widget build(BuildContext context) {

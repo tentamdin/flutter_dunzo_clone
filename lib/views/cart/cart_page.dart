@@ -9,8 +9,11 @@ import 'package:get/get.dart';
 class CartPage extends StatelessWidget {
   final shoppingController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
+    var displayCartItem = [].obs;
+    displayCartItem.value = cartController.cartList.toSet().toList();
     return Scaffold(
       appBar: CustomAppBar(
         elevation: 1,
@@ -84,7 +87,7 @@ class CartPage extends StatelessWidget {
                       ),
                       Obx(
                         () => Column(
-                          children: cartController.cartList.map<Widget>(
+                          children: cartController.cartItems.map<Widget>(
                             (cartItem) {
                               return ListTile(
                                 minLeadingWidth: 10,
@@ -137,9 +140,19 @@ class CartPage extends StatelessWidget {
                                                   size: 20,
                                                 ),
                                                 onPressed: () {
-                                                  // cartController.decrement(index);
-                                                  // cartController.removeFromcart(
-                                                  //     shoppingController.products[index]);
+                                                  cartController
+                                                      .decreaseQuantity(
+                                                          shoppingController
+                                                                  .products[
+                                                              cartController
+                                                                  .productIndex
+                                                                  .value]);
+                                                  cartController.removeCartItem(
+                                                      shoppingController
+                                                              .products[
+                                                          cartController
+                                                              .productIndex
+                                                              .value]);
                                                 }),
                                           ),
                                           Text(
@@ -156,9 +169,20 @@ class CartPage extends StatelessWidget {
                                                       .tealAccent.shade700,
                                                 ),
                                                 onPressed: () {
-                                                  // cartController.increment(index);
-                                                  // cartController.addToCart(
-                                                  //     shoppingController.products[index]);
+                                                  cartController
+                                                      .increaseQuantity(
+                                                          shoppingController
+                                                                  .products[
+                                                              cartController
+                                                                  .productIndex
+                                                                  .value]);
+                                                  cartController
+                                                      .addProductToCart(
+                                                          shoppingController
+                                                                  .products[
+                                                              cartController
+                                                                  .productIndex
+                                                                  .value]);
                                                 }),
                                           ),
                                         ],
@@ -264,6 +288,9 @@ class CartPage extends StatelessWidget {
                           Text("To pay"),
                           Text("Rs 185"),
                         ],
+                      ),
+                      SizedBox(
+                        height: 200,
                       ),
                     ],
                   ),
