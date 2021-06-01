@@ -7,13 +7,11 @@ import 'package:flutter_dunzo_mvp/widget/custom_appbar.dart';
 import 'package:get/get.dart';
 
 class CartPage extends StatelessWidget {
-  final shoppingController = Get.find<ProductController>();
+  final productController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
-    var displayCartItem = [].obs;
-    displayCartItem.value = cartController.cartList.toSet().toList();
     return Scaffold(
       appBar: CustomAppBar(
         elevation: 1,
@@ -87,7 +85,7 @@ class CartPage extends StatelessWidget {
                       ),
                       Obx(
                         () => Column(
-                          children: cartController.cartItems.map<Widget>(
+                          children: cartController.carts.map<Widget>(
                             (cartItem) {
                               return ListTile(
                                 minLeadingWidth: 10,
@@ -142,17 +140,7 @@ class CartPage extends StatelessWidget {
                                                 onPressed: () {
                                                   cartController
                                                       .decreaseQuantity(
-                                                          shoppingController
-                                                                  .products[
-                                                              cartController
-                                                                  .productIndex
-                                                                  .value]);
-                                                  cartController.removeCartItem(
-                                                      shoppingController
-                                                              .products[
-                                                          cartController
-                                                              .productIndex
-                                                              .value]);
+                                                          cartItem);
                                                 }),
                                           ),
                                           Text(
@@ -171,18 +159,7 @@ class CartPage extends StatelessWidget {
                                                 onPressed: () {
                                                   cartController
                                                       .increaseQuantity(
-                                                          shoppingController
-                                                                  .products[
-                                                              cartController
-                                                                  .productIndex
-                                                                  .value]);
-                                                  cartController
-                                                      .addProductToCart(
-                                                          shoppingController
-                                                                  .products[
-                                                              cartController
-                                                                  .productIndex
-                                                                  .value]);
+                                                          cartItem);
                                                 }),
                                           ),
                                         ],
@@ -194,7 +171,7 @@ class CartPage extends StatelessWidget {
                                     SizedBox(
                                       width: 40,
                                       child: Text(
-                                        "\u{20B9}${cartItem.price.toInt() * cartItem.quantity.toInt()}",
+                                        "\u{20B9}${cartItem.cost.toInt()}",
                                         textDirection: TextDirection.rtl,
                                       ),
                                     ),

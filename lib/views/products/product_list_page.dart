@@ -41,7 +41,8 @@ class ProductListPage extends StatelessWidget {
             init: productController,
             builder: (context) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: 50),
+                padding: EdgeInsets.only(
+                    bottom: cartController.carts.length == 0 ? 0 : 50),
                 child: ListView.builder(
                   itemCount: productController.products.length,
                   itemBuilder: (context, index) {
@@ -79,7 +80,7 @@ class ProductListPage extends StatelessWidget {
             }),
       ),
       bottomSheet: Obx(
-        () => cartController.cartCount == 0
+        () => cartController.carts.length == 0
             ? Container(
                 height: 0,
               )

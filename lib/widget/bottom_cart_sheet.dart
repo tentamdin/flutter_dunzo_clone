@@ -33,7 +33,7 @@ class BottomCartSheet extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text("${cartController.cartCount} Items",
+                      Text("${cartController.cartItems} Items",
                           style: KProductBoldStyle),
                       SizedBox(
                         width: 20,
