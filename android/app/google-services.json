@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "672995150465",
+    "project_id": "flutter-dunzo-mvp-76b42",
+    "storage_bucket": "flutter-dunzo-mvp-76b42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672995150465:android:f713ab2c4b090d298b9b80",
+        "android_client_info": {
+          "package_name": "com.example.flutter_dunzo_mvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672995150465-03itcugrd43dp7t23qldhnv4g1985j5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUzuuHT3kAYsENLFz7y7gxR3y5zDSTyGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672995150465-03itcugrd43dp7t23qldhnv4g1985j5n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/config/constants.dart';
-import 'package:flutter_zomato/controllers/cart_controller.dart';
-import 'package:flutter_zomato/controllers/product_controller.dart';
+import 'package:flutter_dunzo_mvp/config/constants.dart';
+import 'package:flutter_dunzo_mvp/controllers/cart_controller.dart';
+import 'package:flutter_dunzo_mvp/controllers/product_controller.dart';
 import 'package:get/get.dart';
 
 class SingleProduct extends StatelessWidget {

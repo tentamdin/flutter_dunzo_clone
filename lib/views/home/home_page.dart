@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/config/constants.dart';
-import 'package:flutter_zomato/views/account/account_page.dart';
-import 'package:flutter_zomato/views/cart/cart_page.dart';
-import 'package:flutter_zomato/views/products/product_list_page.dart';
+import 'package:flutter_dunzo_mvp/config/constants.dart';
+import 'package:flutter_dunzo_mvp/views/account/account_page.dart';
+import 'package:flutter_dunzo_mvp/views/cart/cart_page.dart';
+import 'package:flutter_dunzo_mvp/views/products/product_list_page.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,6 +41,9 @@ class HomePage extends StatelessWidget {
             ),
             onPressed: () {
               Get.to(() => AccountPage());
+              // FirebaseFirestore.instance
+              //     .collection("testing")
+              //     .add({"timeStamp": Timestamp.fromDate(DateTime.now())});
             },
           ),
           IconButton(
@@ -166,43 +169,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-/* This is carsousel of widget */
-// Widget choiceScroll =  SingleChildScrollView(
-//               scrollDirection: Axis.horizontal,
-//               child: Row(
-//                 children: optionList
-//                     .map((data) => Padding(
-//                           padding: const EdgeInsets.only(right: 10),
-//                           child: OutlinedButton(
-//                             onPressed: () {},
-//                             child: Text(
-//                               data,
-//                               style: TextStyle(
-//                                 fontSize: 12,
-//                                 color: Colors.black,
-//                               ),
-//                             ),
-//                             style: OutlinedButton.styleFrom(
-//                               backgroundColor: Colors.white,
-//                               elevation: 2,
-//                               shadowColor: Colors.grey,
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(
-//                                   10.0,
-//                                 ),
-//                               ),
-//                               side: BorderSide(
-//                                 width: 0.5,
-//                                 color: Colors.grey,
-//                               ),
-//                             ),
-//                           ),
-//                         ))
-//                     .toList(),
-//               ),
-//             );
-
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.

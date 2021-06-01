@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_zomato">
+    package="com.example.flutter_dunzo_mvp">
    <application
-        android:label="flutter_zomato"
+        android:label="flutter_dunzo_mvp"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/views/home/home_page.dart';
-import 'package:flutter_zomato/views/cash/cash_page.dart';
-import 'package:flutter_zomato/views/order/order_page.dart';
-import 'package:flutter_zomato/views/search/search_page.dart';
+import 'package:flutter_dunzo_mvp/views/home/home_page.dart';
+import 'package:flutter_dunzo_mvp/views/cash/cash_page.dart';
+import 'package:flutter_dunzo_mvp/views/order/order_page.dart';
+import 'package:flutter_dunzo_mvp/views/search/search_page.dart';
 
 class BasedScreen extends StatefulWidget {
   @override
