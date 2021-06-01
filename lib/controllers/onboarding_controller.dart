@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/models/onboarding_info.dart';
+import 'package:flutter_dunzo_mvp/models/onboarding_info.dart';
 import 'package:get/get.dart';
 
 class OnBoardingController extends GetxController {

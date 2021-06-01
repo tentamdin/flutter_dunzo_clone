@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/config/constants.dart';
-import 'package:flutter_zomato/controllers/cart_controller.dart';
-import 'package:flutter_zomato/controllers/product_controller.dart';
-import 'package:flutter_zomato/views/payment/payment_page.dart';
-import 'package:flutter_zomato/widget/custom_appbar.dart';
+import 'package:flutter_dunzo_mvp/config/constants.dart';
+import 'package:flutter_dunzo_mvp/controllers/cart_controller.dart';
+import 'package:flutter_dunzo_mvp/controllers/product_controller.dart';
+import 'package:flutter_dunzo_mvp/views/payment/payment_page.dart';
+import 'package:flutter_dunzo_mvp/widget/custom_appbar.dart';
 import 'package:get/get.dart';
 
 class CartPage extends StatelessWidget {
@@ -106,7 +106,7 @@ class CartPage extends StatelessWidget {
                                   ),
                                 ),
                                 title: Text(
-                                  "${cartItem.productName}",
+                                  "${cartItem.name}",
                                   style: KProductBoldStyle,
                                 ),
                                 subtitle: Text(

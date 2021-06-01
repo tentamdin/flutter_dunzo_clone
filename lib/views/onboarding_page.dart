@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/controllers/onboarding_controller.dart';
-import 'package:flutter_zomato/views/products/product_list_page.dart';
+import 'package:flutter_dunzo_mvp/controllers/onboarding_controller.dart';
+import 'package:flutter_dunzo_mvp/views/products/product_list_page.dart';
 import 'package:get/get.dart';
 
 class OnboardingPage extends StatelessWidget {

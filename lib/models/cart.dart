@@ -1,3 +1,5 @@
+import 'dart:core';
+
 class CartModel {
   static const ID = "id";
   static const IMAGE = "image";

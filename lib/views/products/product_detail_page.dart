@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/config/constants.dart';
-import 'package:flutter_zomato/controllers/cart_controller.dart';
-import 'package:flutter_zomato/controllers/product_controller.dart';
-import 'package:flutter_zomato/widget/custom_appbar.dart';
-import 'package:flutter_zomato/widget/single_product.dart';
+import 'package:flutter_dunzo_mvp/config/constants.dart';
+import 'package:flutter_dunzo_mvp/controllers/cart_controller.dart';
+import 'package:flutter_dunzo_mvp/controllers/product_controller.dart';
+import 'package:flutter_dunzo_mvp/widget/custom_appbar.dart';
+import 'package:flutter_dunzo_mvp/widget/single_product.dart';
 import 'package:get/get.dart';
 
 class ProductDetailPage extends StatelessWidget {
   ProductDetailPage({this.index});
-  final shoppingController = Get.find<ProductController>();
+  final productController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
   final int index;
 
@@ -36,7 +36,7 @@ class ProductDetailPage extends StatelessWidget {
           child: Column(
             children: [
               Image.asset(
-                shoppingController.products[index].productImage,
+                productController.products[index].image,
                 height: MediaQuery.of(context).size.height / 4,
                 fit: BoxFit.contain,
               ),
@@ -45,11 +45,11 @@ class ProductDetailPage extends StatelessWidget {
                 listTileOnTap: () {},
                 listTileLeadingWidget: null,
                 listTileTitleWidget: Text(
-                  "${shoppingController.products[index].productName}",
+                  "${productController.products[index].name}",
                   style: KProductBoldStyle,
                 ),
                 listTileSubtitleWidget: Text(
-                  "\u{20B9}${shoppingController.products[index].price}",
+                  "\u{20B9}${productController.products[index].price}",
                   style: KProductBoldStyle,
                 ),
               ),
