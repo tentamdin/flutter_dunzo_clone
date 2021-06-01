@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dunzo_mvp/config/constants.dart';
+import 'package:flutter_dunzo_mvp/controllers/cart_controller.dart';
 import 'package:flutter_dunzo_mvp/views/account/account_page.dart';
 import 'package:flutter_dunzo_mvp/views/cart/cart_page.dart';
 import 'package:flutter_dunzo_mvp/views/products/product_list_page.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,10 @@ class HomePage extends StatelessWidget {
             ),
             onPressed: () {
               Get.to(() => CartPage());
+              // FirebaseFirestore.instance
+              //     .collection("testing")
+              //     .doc("NnnEgrosndMxTslQUN6G")
+              //     .update({"name": "bye"});
             },
           ),
         ],

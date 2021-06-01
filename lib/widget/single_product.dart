@@ -12,7 +12,7 @@ class SingleProduct extends StatelessWidget {
       this.listTileOnTap,
       this.listTileTitleWidget});
 
-  final shoppingController = Get.find<ProductController>();
+  final productController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
   final int index;
   final Function listTileOnTap;
@@ -32,7 +32,7 @@ class SingleProduct extends StatelessWidget {
         title: listTileTitleWidget,
         subtitle: listTileSubtitleWidget,
         trailing: Obx(
-          () => shoppingController.products[index].quantity.value == 0
+          () => productController.products[index].quantity.value == 0
               ? OutlinedButton(
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(
@@ -44,9 +44,7 @@ class SingleProduct extends StatelessWidget {
                       )),
                   onPressed: () {
                     cartController
-                        .increaseQuantity(shoppingController.products[index]);
-                    cartController
-                        .addProductToCart(shoppingController.products[index]);
+                        .addProductToCart(productController.products[index]);
                   },
                   child: Text(
                     'ADD',
@@ -71,16 +69,14 @@ class SingleProduct extends StatelessWidget {
                               size: 20,
                             ),
                             onPressed: () {
-                              cartController.decreaseQuantity(
-                                  shoppingController.products[index]);
-                              cartController.removeCartItem(
-                                  shoppingController.products[index]);
+                              cartController.decreaseQuantity2(
+                                  productController.products[index]);
                             }),
                       ),
-                      Text(
-                        "${shoppingController.products[index].quantity.value}",
-                        style: KProductChangingButtonTextStyle,
-                      ),
+                      Obx(() => Text(
+                            "${productController.products[index].quantity}",
+                            style: KProductChangingButtonTextStyle,
+                          )),
                       Expanded(
                         child: IconButton(
                             icon: Icon(
@@ -89,10 +85,8 @@ class SingleProduct extends StatelessWidget {
                               color: Colors.tealAccent.shade700,
                             ),
                             onPressed: () {
-                              cartController.increaseQuantity(
-                                  shoppingController.products[index]);
-                              cartController.addProductToCart(
-                                  shoppingController.products[index]);
+                              cartController.increaseQuantity2(
+                                  productController.products[index]);
                             }),
                       ),
                     ],
