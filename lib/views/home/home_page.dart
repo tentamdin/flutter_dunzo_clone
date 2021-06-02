@@ -138,8 +138,8 @@ class HomePage extends StatelessWidget {
                                 ),
                                 clipBehavior: Clip.antiAlias,
                                 child: Image.asset(
-                                  "",
-                                  fit: BoxFit.cover,
+                                  "assets/imgs/emptycart.jpg",
+                                  fit: BoxFit.fitHeight,
                                 ),
                               ),
                               footer: Material(

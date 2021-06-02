@@ -31,68 +31,66 @@ class SingleProduct extends StatelessWidget {
         leading: listTileLeadingWidget,
         title: listTileTitleWidget,
         subtitle: listTileSubtitleWidget,
-        trailing: Obx(
-          () => productController.products[index].quantity.value == 0
-              ? OutlinedButton(
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-                      ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                      )),
-                  onPressed: () {
-                    cartController
-                        .addProductToCart(productController.products[index]);
-                  },
-                  child: Text(
-                    'ADD',
-                    style: KProductChangingButtonTextStyle,
-                  ),
-                )
-              : Container(
-                  width: 85,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    border: Border.all(color: Colors.grey.shade400),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.remove,
-                              size: 20,
-                            ),
-                            onPressed: () {
-                              cartController.decreaseQuantity2(
-                                  productController.products[index]);
-                            }),
-                      ),
-                      Obx(() => Text(
-                            "${productController.products[index].quantity}",
-                            style: KProductChangingButtonTextStyle,
-                          )),
-                      Expanded(
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.add,
-                              size: 20,
-                              color: Colors.tealAccent.shade700,
-                            ),
-                            onPressed: () {
-                              cartController.increaseQuantity2(
-                                  productController.products[index]);
-                            }),
-                      ),
-                    ],
-                  ),
+        trailing: productController.products[index].quantity == 0
+            ? OutlinedButton(
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                    )),
+                onPressed: () {
+                  cartController
+                      .addProductToCart(productController.products[index]);
+                },
+                child: Text(
+                  'ADD',
+                  style: KProductChangingButtonTextStyle,
                 ),
-        ),
+              )
+            : Container(
+                width: 85,
+                height: 35,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(color: Colors.grey.shade400),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.remove,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            cartController.decreaseQuantity2(
+                                productController.products[index]);
+                          }),
+                    ),
+                    Obx(() => Text(
+                          "${productController.products[index].quantity}",
+                          style: KProductChangingButtonTextStyle,
+                        )),
+                    Expanded(
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.add,
+                            size: 20,
+                            color: Colors.tealAccent.shade700,
+                          ),
+                          onPressed: () {
+                            cartController.increaseQuantity2(
+                                productController.products[index]);
+                          }),
+                    ),
+                  ],
+                ),
+              ),
       ),
     );
   }

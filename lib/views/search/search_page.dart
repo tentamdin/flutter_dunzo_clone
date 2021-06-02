@@ -16,7 +16,6 @@ class SearchPage extends StatelessWidget {
                 (data) => Container(
                   child: GridTile(
                     child: GridTileBar(
-                      backgroundColor: Colors.orange,
                       title: CircleAvatar(
                         child: Text(
                           data.substring(0, 1).toUpperCase(),
