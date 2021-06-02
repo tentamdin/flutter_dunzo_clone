@@ -1,19 +1,18 @@
-import 'package:get/state_manager.dart';
-
 class Product {
   String id;
   String name;
   String image;
   String description;
   double price;
+  int quantity;
 
-  Product({
-    this.id,
-    this.name,
-    this.image,
-    this.description,
-    this.price,
-  });
+  Product(
+      {this.id,
+      this.name,
+      this.image,
+      this.description,
+      this.price,
+      this.quantity});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -21,7 +20,6 @@ class Product {
     image = json["image"];
     description = json["description"];
     price = json["price"] != null ? double.parse(json["price"]) : json["price"];
+    quantity = json["quantity"];
   }
-
-  final quantity = 0.obs;
 }

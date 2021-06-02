@@ -35,7 +35,7 @@ class ProductDetailPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Image.asset(
+              Image.network(
                 productController.products[index].image,
                 height: MediaQuery.of(context).size.height / 4,
                 fit: BoxFit.contain,

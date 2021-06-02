@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 
 class CartController extends GetxController {
   final productController = Get.find<ProductController>();
+  int quantityValue;
 
   RxList<CartModel> cartList = RxList<CartModel>();
   String collection = "cartList";
@@ -37,12 +38,15 @@ class CartController extends GetxController {
         "id": uuid.v4(),
         "productId": product.id,
         "name": product.name,
-        "quantity": 1,
+        "quantity": product.quantity + 1,
         "price": product.price,
         "image": product.image,
-        "cost": product.price
+        "cost": product.price,
       });
-      product.quantity.value++;
+      firebaseFirestore
+          .collection("fruits")
+          .doc(product.id)
+          .update({"quantity": product.quantity + 1});
       Get.snackbar("Item added", "${product.name} is added to your cart");
     } catch (e) {
       Get.snackbar("Error", "Cannot add this item");
@@ -51,7 +55,6 @@ class CartController extends GetxController {
     // .cartList.add(product);
   }
 
-  RxInt productIndex = 0.obs;
   double get totalAmount => cartList.fold(
       0, (previousValue, element) => previousValue + element.cost);
 
@@ -62,114 +65,77 @@ class CartController extends GetxController {
     return cartList.where((item) => item.id == product.id).isNotEmpty;
   }
 
-  bool checkCartQuantityValue(index) {
-    print("Inisde checkcart  ${carts.length}");
-    if (cartList.length == 0) {
-      print("empty cart");
-      return true;
-    } else {
-      bool isIdEqual = carts
-          .every((cart) => productController.products[index].id == cart.id);
-      print("For every index $index , isIdEqual $isIdEqual");
-      return isIdEqual;
-    }
-    // firebaseFirestore
-    //     .collection(collection)
-    //     .where("productId", isEqualTo: productController.products[index].id)
-    //     .get()
-    //     .then((querySnapshot) {
-    //   print("Querysnapshot");
-    //   querySnapshot.docs.forEach((data) {
-    //     print("Quanity :: ${data.data()["quantity"]} ");
-    //     var quantity = data.data()["quantity"];
-    //     return quantity;
-    //   });
-    // });
-  }
-
-  void removeCartItem(Product product) {
+  void removeCartItem2(String id) {
     try {
-      cartList.remove(product);
+      firebaseFirestore.collection(collection).doc(id).delete();
     } catch (e) {
       Get.snackbar("Error", "Cannot remove this item");
       debugPrint(e.message);
     }
-  }
-
-  void removeCartItem2(Product product) {
-    try {
-      firebaseFirestore.collection(collection).doc(product.id).delete();
-    } catch (e) {
-      Get.snackbar("Error", "Cannot remove this item");
-      debugPrint(e.message);
-    }
-  }
-
-  updateUserData(Map<String, dynamic> data) {
-    firebaseFirestore.collection(collection).doc().update(data);
   }
 
   void decreaseQuantity(CartModel cartItem) {
-    Product product = Product(
-      id: cartItem.productId,
-      name: cartItem.name,
-      image: cartItem.image,
-      description: "",
-      price: cartItem.price,
-    );
-    print("product quantity 1 ${product.quantity.value}");
-    product.quantity.value = cartItem.quantity;
-    print("product quantity 2 ${product.quantity.value}");
-    if (product.quantity.value == 1) {
-      print("product quantity 3 ${product.quantity.value}");
-      removeCartItem2(product);
-      product.quantity.value--;
-      print("product quantity 4 ${product.quantity.value}");
+    quantityValue = cartItem.quantity - 1;
+    if (cartItem.quantity == 1) {
+      removeCartItem2(cartItem.productId);
+      firebaseFirestore
+          .collection("fruits")
+          .doc(cartItem.productId)
+          .update({"quantity": quantityValue});
     } else {
-      print("product quantity 3 ${product.quantity.value}");
-      product.quantity.value--;
-      print("product quantity 4 ${product.quantity.value}");
-      firebaseFirestore.collection(collection).doc(product.id).update({
-        "quantity": product.quantity.value,
-        "cost": product.quantity.value * product.price,
+      firebaseFirestore
+          .collection("fruits")
+          .doc(cartItem.productId)
+          .update({"quantity": quantityValue});
+      firebaseFirestore.collection(collection).doc(cartItem.productId).update({
+        "quantity": quantityValue,
+        "cost": quantityValue * cartItem.price,
       });
     }
   }
 
   void decreaseQuantity2(Product product) {
-    if (product.quantity.value == 1) {
-      removeCartItem2(product);
-      product.quantity.value--;
+    quantityValue = product.quantity - 1;
+    print("decreaseQuantity2 :: $quantityValue");
+    if (product.quantity == 1) {
+      removeCartItem2(product.id);
+      firebaseFirestore
+          .collection("fruits")
+          .doc(product.id)
+          .update({"quantity": quantityValue});
     } else {
-      product.quantity.value--;
+      firebaseFirestore
+          .collection("fruits")
+          .doc(product.id)
+          .update({"quantity": quantityValue});
       firebaseFirestore.collection(collection).doc(product.id).update({
-        "quantity": product.quantity.value,
-        "cost": product.quantity.value * product.price,
+        "quantity": quantityValue,
+        "cost": quantityValue * product.price,
       });
     }
   }
 
   void increaseQuantity2(Product product) {
-    product.quantity.value++;
+    quantityValue = product.quantity + 1;
+    firebaseFirestore
+        .collection("fruits")
+        .doc(product.id)
+        .update({"quantity": quantityValue});
     firebaseFirestore.collection(collection).doc(product.id).update({
-      "quantity": product.quantity.value,
-      "cost": product.quantity.value * product.price,
+      "quantity": quantityValue,
+      "cost": quantityValue * product.price,
     });
   }
 
   void increaseQuantity(CartModel cartItem) {
-    Product product = Product(
-      id: cartItem.productId,
-      name: cartItem.name,
-      image: cartItem.image,
-      description: "",
-      price: cartItem.price,
-    );
-    product.quantity.value = cartItem.quantity;
-    product.quantity.value++;
-    firebaseFirestore.collection(collection).doc(product.id).update({
-      "quantity": product.quantity.value,
-      "cost": product.quantity.value * product.price,
+    quantityValue = cartItem.quantity + 1;
+    firebaseFirestore
+        .collection("fruits")
+        .doc(cartItem.id)
+        .update({"quantity": quantityValue});
+    firebaseFirestore.collection(collection).doc(cartItem.productId).update({
+      "quantity": quantityValue,
+      "cost": quantityValue * cartItem.price,
     });
   }
 }
