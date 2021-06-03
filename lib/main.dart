@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Dunzo mvp',
+      title: 'Dunzo mvp',
       theme: ThemeData(
         primaryColor: Colors.greenAccent,
         scaffoldBackgroundColor: Colors.white,
