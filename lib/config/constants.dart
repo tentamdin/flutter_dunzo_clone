@@ -33,6 +33,12 @@ const KBoldTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+final KGreyTextStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+  color: Colors.grey.shade900,
+);
+
 const KProductBoldStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w500,
