@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dunzo_mvp/views/home/home_page.dart';
 import 'package:flutter_dunzo_mvp/views/cash/cash_page.dart';
-import 'package:flutter_dunzo_mvp/views/order/order_page.dart';
-import 'package:flutter_dunzo_mvp/views/search/search_page.dart';
+import 'package:flutter_dunzo_mvp/views/courier/courier_page.dart';
+import 'package:flutter_dunzo_mvp/views/daily/daily_page.dart';
+import 'package:flutter_dunzo_mvp/views/stores/stores_page.dart';
+import 'package:get/get.dart';
 
 class BasedScreen extends StatefulWidget {
   @override
@@ -12,9 +13,9 @@ class BasedScreen extends StatefulWidget {
 class _BasedScreenState extends State<BasedScreen> {
   int _currentIndex = 0;
   final List<Widget> _screen = [
-    HomePage(),
-    SearchPage(),
-    OrderPage(),
+    DailyPage(),
+    StoresPage(),
+    CourierPage(),
     CashPage(),
   ];
 
@@ -29,6 +30,7 @@ class _BasedScreenState extends State<BasedScreen> {
     return Scaffold(
       body: _screen[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         unselectedItemColor: Colors.grey.shade700,
         selectedItemColor: Colors.greenAccent.shade700,
         showSelectedLabels: true,
@@ -37,16 +39,24 @@ class _BasedScreenState extends State<BasedScreen> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: "HOME",
+            icon: Icon(
+              Icons.inventory,
+            ),
+            label: "DAILY",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            label: 'SEARCH',
+            icon: Icon(
+              Icons.storefront_outlined,
+            ),
+            label: 'STORES',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_outlined),
-            label: 'ORDER',
+            icon: GestureDetector(
+                onTap: () {
+                  Get.to(() => CourierPage());
+                },
+                child: Icon(Icons.shopping_bag_outlined)),
+            label: 'COURIER',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.art_track),
